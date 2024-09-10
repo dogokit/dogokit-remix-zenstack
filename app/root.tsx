@@ -1,11 +1,19 @@
 import {
+  json,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import "./tailwind.css";
+import type { LoaderFunctionArgs } from "@remix-run/node";
+
+import { getUser } from "~/libs/session.server";
+import "~/styles/tailwind.css";
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  return json({ user: await getUser(request) });
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

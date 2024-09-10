@@ -1,48 +1,25 @@
 import type { MetaFunction } from "@remix-run/node";
+import { Link } from "@remix-run/react";
+import { useOptionalUser } from "~/features/user/hook";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "Dogokit Remix ZenStack" },
+    { name: "description", content: "Remix app with ZenStack." },
   ];
 };
 
 export default function Index() {
+  const user = useOptionalUser();
+
   return (
-    <div className="font-sans p-4">
-      <h1 className="text-3xl">Welcome to Remix</h1>
-      <ul className="list-disc mt-4 pl-6 space-y-2">
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            target="_blank"
-            href="https://remix.run/start/quickstart"
-            rel="noreferrer"
-          >
-            5m Quick Start
-          </a>
-        </li>
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            target="_blank"
-            href="https://remix.run/start/tutorial"
-            rel="noreferrer"
-          >
-            30m Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            target="_blank"
-            href="https://remix.run/docs"
-            rel="noreferrer"
-          >
-            Remix Docs
-          </a>
-        </li>
-      </ul>
+    <div className="flex h-full min-h-screen flex-col max-w-xl space-y-10">
+      <h1 className="text-3xl font-bold">Dogokit Remix ZenStack</h1>
+
+      <section className="flex items-center justify-center rounded-md border border-transparent bg-indigo-50 px-4 py-3 text-base font-medium text-indigo-700 sm:px-8">
+        {user && <Link to="/posts">View Posts for {user.email}</Link>}
+        {!user && <Link to="/login">Log in</Link>}
+      </section>
     </div>
   );
 }
